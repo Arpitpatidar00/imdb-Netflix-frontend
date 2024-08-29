@@ -1,0 +1,254 @@
+/* Container Styles */
+.container-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  width: 100%;
+  margin: 0;
+  min-height: 100vh; /* Ensures the container takes full viewport height */
+  background-image: url("https://www.blackmancustoms.com/Cinemalounge/LOWER.jpg");
+  background-size: cover; /* Ensure the background image covers the entire container */
+  background-position: center; /* Center the background image */
+}
+
+.container-Auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  color: rgb(255, 255, 255) ;
+  background-color: transparent;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px); /* Apply blur effect */
+}
+
+/* Form Styles */
+.Auth form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+/* Heading styles */
+/* Heading styles */
+.Auth h1{
+  font-size: 2rem; /* Font size for the heading */
+  font-weight: 700; /* Bold weight for emphasis */
+  color: #ffffff; /* Dark color for readability */
+  text-align: center; /* Center-align the heading */
+  margin-bottom: 1.5rem; /* Space below the heading */
+  line-height: 1.2; /* Adjust line height for readability */
+  letter-spacing: -0.5px; /* Slightly reduce letter spacing for a tighter look */
+  
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+/* Labels */
+.Auth label {
+  display: block;
+  font-weight: 500;
+  color: #ffffff;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+/* General Input Styles */
+.Auth input {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: #333;
+  background-color: #ffffff;
+  box-shadow: 4 1px 2px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+  border: 2px solid #000000;
+}
+
+/* Focus State */
+.Auth input:focus {
+  border: 2px solid #000000;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+  outline: none;
+}
+
+/* Placeholder Text */
+.Auth input::placeholder {
+  color: #ffffff;
+}
+.button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .container-Auth {
+    padding: 15px;
+    max-width: 90%; /* Adjust max-width on smaller screens */
+  }
+
+  .Auth button {
+    padding: 0.75rem; /* Adjust padding for smaller screens */
+    font-size: 0.75rem; /* Adjust font size for smaller screens */
+  }
+
+  .verify-account-container {
+    padding: 15px;
+    max-width: 90%; /* Adjust max-width on smaller screens */
+  }
+
+  .Auth select, .Auth input {
+    font-size: 0.875rem; /* Adjust font size on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .container-Auth {
+    padding: 10px;
+    max-width: 100%; /* Ensure full width on very small screens */
+  }
+
+  .Auth input {
+    padding: 8px; /* Adjust padding for smaller screens */
+  }
+
+  .Auth button {
+    padding: 0.5rem; /* Further adjust padding for very small screens */
+    font-size: 0.6875rem; /* Further adjust font size for very small screens */
+  }
+
+  .verify-account-container {
+    padding: 10px;
+    max-width: 100%; /* Ensure full width on very small screens */
+  }
+
+  .otp-input-field {
+    width: 40px; /* Adjust size of OTP input fields for smaller screens */
+    height: 40px;
+    font-size: 1.25rem;
+  }
+}
+
+/* Specific Styles for File Input */
+.Auth input[type="file"] {
+  padding: 0;
+  background-color: transparent;
+}
+
+/* Styles for Preview Image */
+.Auth img {
+  max-width: 200px;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* Button Styles */
+.Auth .btn-primary {
+  display: flex ;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background-color: #0007cd;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.Auth .btn-primary:hover {
+  background-color: #2807ff;
+  transform: scale(1.02);
+}
+
+.Auth .text-red-500 {
+  color: #dc2626;
+}
+
+/* OTP Page Styles */
+.verify-account-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.verify-account-container h2 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.verify-account-container p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.otp-input-container {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.otp-input-field {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  font-size: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.otp-input-field:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 1px #4f46e5;
+}
+
+.options {
+  margin-bottom: 20px;
+}
+
+.resend-button, .verify-button {
+  background-color: #4f46e5;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.resend-button:disabled {
+  background-color: #4338ca;
+  cursor: not-allowed;
+}
+
+.verify-button:hover, .resend-button:hover {
+  background-color: #4338ca;
+}
+
+.re-ve-btn {
+  display: contents;
+  margin: 10px;
+  gap: 30px;
+}

@@ -1,0 +1,59 @@
+/* Container holding all movie cards */
+.movie-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center; /* Centers the items horizontally */
+  padding: 20px;
+}
+
+/* Individual movie card */
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  width: 300px; /* Width of each card */
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow to the card */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, width 0.6s ease; /* Apply smooth transitions */
+
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Image inside the movie card */
+.movie-card img {
+  width: 100%;
+  height: auto;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* Movie card body */
+.movie-card-body {
+  padding: 15px;
+  text-align: center;
+}
+
+/* Title of the movie */
+.movie-card-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Additional text in the card */
+.movie-card-text {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Hover effect on the movie card */
+.movie-card:hover {
+  transition-delay: 0.6s; /* Remove delay for smooth transition on hover */
+
+  transform: translateY(-5px); /* Slightly lifts the card up */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhances shadow on hover */
+  width: 350px; /* Width of each card */
+
+}
