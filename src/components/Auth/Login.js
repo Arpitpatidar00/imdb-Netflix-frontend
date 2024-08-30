@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'; // Import the CSS file for styli
 import Cookies from 'js-cookie'; // Import js-cookie
 import axios from 'axios'; // Import axios
 import './Auth.css';
+import Api from "../../Api.js"
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ export default function Login() {
   const loginWithSession = async (sessionId) => {
     try {
   
-      const response = await axios.get('http://localhost:4000/api/auth/protected-route', {
+      const response = await axios.get(`${Api}/api/auth/protected-route`, {
         params: { sessionId }, // Pass sessionId as a query parameter
         withCredentials: true, // Ensure cookies are included with the request
       });

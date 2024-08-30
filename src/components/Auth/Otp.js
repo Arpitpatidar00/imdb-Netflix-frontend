@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie'; // Install js-cookie via npm
 import { setUserData } from '../../action/authActions.js';
 import { useDispatch } from 'react-redux';
+import Api from "../../Api.js"
 
 
 function VerifyAccount() {
@@ -61,7 +62,7 @@ function VerifyAccount() {
    
   
     try {
-      const response = await fetch('http://localhost:4000/api/auth/verify-otp', {
+      const response = await fetch(`${Api}/api/auth/verify-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +93,7 @@ function VerifyAccount() {
   const handleResendClick = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:4000/api/auth/resend-otp', {
+      const response = await fetch(`${Api}/api/auth/resend-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

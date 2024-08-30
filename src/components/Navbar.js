@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import { useDataContext } from "../components/contex/DataContext.js";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "./Navbar.css";
+import Api from "../Api.js"
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export default function Navbar() {
     setSearchTerm(value);
 
     if (value.length >= 3) {
-      fetch(`http://localhost:4000/api/movies/Search?query=${value}`)
+      fetch(`${Api}/api/movies/Search?query=${value}`)
         .then((response) => response.json())
         .then((data) => {
           const sortedSuggestions = data.sort((a, b) => {
@@ -53,7 +54,7 @@ export default function Navbar() {
       }
   
       // Call the logout API with session ID
-      const response = await fetch('http://localhost:4000/api/auth/logout', {
+      const response = await fetch(`${Api}/api/auth/logout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -85,7 +86,7 @@ export default function Navbar() {
   const handleSearchClick = () => {
     if (searchTerm.trim() !== "") {
       axios
-        .post(`http://localhost:4000/api/search/SearchByQyary?searchTerm=${searchTerm} `)
+        .post(`${Api}/api/search/SearchByQyary?searchTerm=${searchTerm} `)
         .then((response) => {
           const data = response.data;
           console.log("Search results:", data);

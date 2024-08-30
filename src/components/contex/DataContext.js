@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie'; // Import js-cookie
-
+import Api from "../../Api.js"
 
 const DataContext = createContext({
   data: [],
@@ -27,13 +27,13 @@ export const DataProvider = ({ children }) => {
   
     switch (value) {
       case 'top-rated':
-        apiUrl = 'http://localhost:4000/api/movies/top-rated';
+        apiUrl = `${Api}/api/movies/top-rated`;
         break;
       case 'top-comment':
-        apiUrl = 'http://localhost:4000/api/movies/most-commented';
+        apiUrl = `${Api}/api/movies/most-commented`;
         break;
       case 'most-awarded':
-        apiUrl = 'http://localhost:4000/api/movies/most-awarded';
+        apiUrl = `${Api}/api/movies/most-awarded`;
         break;
       default:
         return;
@@ -53,13 +53,13 @@ export const DataProvider = ({ children }) => {
     try {
 
         // First API call to fetch movie details
-        const movieResponse = await axios.get(`http://localhost:4000/api/movies/Search/${id}`);
+        const movieResponse = await axios.get(`${Api}/api/movies/Search/${id}`);
         
         // Handle the first response data
         setSelectedMovie(movieResponse.data); // Assuming setSelectedMovie is used for the first response
 
         // Second API call to fetch similar movies
-        const similarMoviesResponse = await axios.get(`http://localhost:4000/api/movies/movies/${id}`);
+        const similarMoviesResponse = await axios.get(`${Api}0/api/movies/movies/${id}`);
         // Handle the second response data (if needed)
         // For example, if you want to display or process similar movies:
         setsimilarMovies(similarMoviesResponse.data)

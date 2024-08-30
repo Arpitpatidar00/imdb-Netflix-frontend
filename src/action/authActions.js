@@ -7,7 +7,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SET_EMAIL = 'SET_EMAIL';
 export const SET_USER_DATA = 'SET_USER_DATA';
-
+const Api = "http://localhost:4000";
 // Action Creators
 export const setFormData = (field, value) => ({
   type: SET_FORM_DATA,
@@ -46,7 +46,7 @@ export const setUserData = (userData) => ({
 export const submitLogin = (formData) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const response = await fetch('http://localhost:4000/api/auth/login', {
+    const response = await fetch(`${Api}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
@@ -68,7 +68,7 @@ export const submitLogin = (formData) => async (dispatch) => {
 export const submitSignup = (formData) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const response = await fetch('http://localhost:4000/api/auth/signup', {
+    const response = await fetch(`${Api}/api/auth/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
