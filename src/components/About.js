@@ -1,12 +1,11 @@
 import React from "react";
 import "./About.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Seggessions from "./Seggessions.js";
 const wordLimit = 200;
 
 export default function MovieDetails({ onClose }) {
-  const dispatch = useDispatch();
-  const { selectedMovie, similarMovies } = useSelector((state) => state.movies);
+  const { selectedMovie } = useSelector((state) => state.movies);
 
   // Safeguard for undefined selectedMovie and similarMovies
   if (!selectedMovie) return null;

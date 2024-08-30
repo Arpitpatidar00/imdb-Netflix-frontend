@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Cookies from 'js-cookie';
 import { useDataContext } from "../components/contex/DataContext.js";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -8,7 +8,6 @@ import "./Navbar.css";
 import Api from "../Api.js"
 
 export default function Navbar() {
-  const dispatch = useDispatch();
   const { selectedFilter, setSelectedFilter, fetchData } = useDataContext();
 
   const userData = useSelector((state) => state.auth.userData);
@@ -103,8 +102,8 @@ export default function Navbar() {
     <div>
       <nav className="navbar bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand">Movies</a>
-          <label>
+        <a className="navbar-brand" href="/home">Movies</a>
+        <label>
             Apply a filter:
             <select
               name="selectedFilter"

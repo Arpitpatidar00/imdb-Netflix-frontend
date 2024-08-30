@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFormData, submitLogin, setError, loginSuccess } from '../../action/authActions';
 import { Link, useNavigate } from 'react-router-dom';
@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'; // Import the CSS file for styli
 import Cookies from 'js-cookie'; // Import js-cookie
 import axios from 'axios'; // Import axios
 import './Auth.css';
-import Api from "../../Api.js"
+import Api from "../../Api.js";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -15,13 +15,32 @@ export default function Login() {
 
   const { formData = {}, loading, error, userData } = useSelector((state) => state.auth);
 
+  // Function to handle session-based login, memoized with useCallback
+  const loginWithSession = useCallback(async (sessionId) => {
+    try {
+      const response = await axios.get(`${Api}/api/auth/protected-route`, {
+        params: { sessionId }, // Pass sessionId as a query parameter
+        withCredentials: true, // Ensure cookies are included with the request
+      });
+
+      dispatch(loginSuccess(response.data));
+
+      Cookies.set('accessToken', response.data.token, { path: '/', secure: true, sameSite: 'Strict' });
+      Cookies.set('sessionId', sessionId, { path: '/', secure: true, sameSite: 'Strict' });
+
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'Session login failed';
+      dispatch(setError(errorMessage));
+    }
+  }, [dispatch]); // Add dispatch to the dependency array of useCallback
+
   // Check for session ID in cookies and log in if present
   useEffect(() => {
     const sessionId = Cookies.get('sessionId');
     if (sessionId) {
       loginWithSession(sessionId);
     }
-  }, [dispatch]);
+  }, [loginWithSession]); // Updated dependency array
 
   // Effect for navigating if userData is present
   useEffect(() => {
@@ -54,31 +73,6 @@ export default function Login() {
       dispatch(submitLogin(formData));
     }
   };
-
-  // Function to handle session-based login
-  const loginWithSession = async (sessionId) => {
-    try {
-  
-      const response = await axios.get(`${Api}/api/auth/protected-route`, {
-        params: { sessionId }, // Pass sessionId as a query parameter
-        withCredentials: true, // Ensure cookies are included with the request
-      });
-  
-      dispatch(loginSuccess(response.data));
-  
-      Cookies.set('accessToken', response.data.token, { path: '/', secure: true, sameSite: 'Strict' });
-      Cookies.set('sessionId', sessionId, { path: '/', secure: true, sameSite: 'Strict' });
-  
-    } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Session login failed';
-      dispatch(setError(errorMessage));
-    }
-  };
-  
-  
-  
-  
-
 
   return (
     <div className="container-page">

@@ -1,6 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie'; // Import js-cookie
 import Api from "../../Api.js"
 
 const DataContext = createContext({
