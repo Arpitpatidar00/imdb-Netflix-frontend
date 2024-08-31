@@ -8,11 +8,13 @@ import "./Navbar.css";
 import Api from "../Api.js"
 
 export default function Navbar() {
-  const { selectedFilter, setSelectedFilter, fetchData } = useDataContext();
+  const {  setSearch,selectedFilter, setSelectedFilter, fetchData } = useDataContext();
 
-  const userData = useSelector((state) => state.auth.userData);
+  const userDataString = localStorage.getItem('userData');
+  const userData = userDataString ? JSON.parse(userDataString) : null;
 
   const [searchTerm, setSearchTerm] = useState("");
+
   const [suggestions, setSuggestions] = useState([]);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
@@ -87,9 +89,8 @@ export default function Navbar() {
       axios
         .post(`${Api}/api/search/SearchByQyary?searchTerm=${searchTerm} `)
         .then((response) => {
-          const data = response.data;
-          console.log("Search results:", data);
-          // Handle the search results here
+          const Search = response.data;
+          setSearch(Search)
         })
         .catch((error) => console.error("Error fetching search results:", error));
     }
@@ -114,6 +115,7 @@ export default function Navbar() {
               <option value="top-rated">Top Rated</option>
               <option value="top-comment">Top Comment</option>
               <option value="most-awarded">Most-Awarded</option>
+              <option value="trending">Trending</option>
             </select>
           </label>
           <form

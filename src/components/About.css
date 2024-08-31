@@ -1,6 +1,14 @@
+/* General Styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Movie Details */
 .movie-details {
   background-color: black;
   width: 90%;
+  max-width: 1200px; /* Set a max-width for large screens */
   height: auto;
   z-index: 2;
   opacity: 1;
@@ -12,6 +20,7 @@
   left: 0;
   margin-bottom: 2em;
   min-width: 0;
+  padding: 15px;
 }
 
 /* Header Styles */
@@ -26,43 +35,41 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 24px;
+  font-size: 20px;
   cursor: pointer;
   padding: 10px;
-  color: antiquewhite;
+  color: rgb(0, 0, 0) !important;
   border-radius: 50%;
-  background-color: rgb(0, 0, 0);
-  background: linear-gradient(0deg, #181818, transparent 50%);
+  background-color: rgba(24, 22, 22, 0.504) !important;
 }
 
 .close-btn:hover {
-  background-color: #695f5f;
-}
+  background-color: #ffffff75 !important;
+  color: rgb(245, 245, 245 )!important;
 
+}
 
 /* Image Placeholder Styles */
 .image-placeholder {
   position: relative;
   width: 100%;
-  height: auto;
+  height: 1200px; /* Default height */
   max-width: 100%;
-  max-height: 100%;
   background-color: #000000;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden; /* Fixed to better handle images */
   border-radius: 15px;
-
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(0, 0, 0));
 }
 
 .image-placeholder img {
-  width: 100%; /* Or any fixed width */
-  max-width: 100%; /* Ensures it doesn’t overflow */
-  height: 800px; /* Fixed height or use aspect ratio */
-  position: relative; /* For absolute positioning of the image */
-  overflow: hidden; /* Hides any part of the image that exceeds the container */
-  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures images cover the container without distortion */
+  border-radius: 15px;
 }
 
 /* Info Section Styles */
@@ -92,7 +99,8 @@
 
 .info-plot {
   font-size: 18px;
-  width: 700px;
+  width: 100%;
+  max-width: 700px; /* Set a max-width for better readability */
   font-family: 'Times New Roman', Times, serif;
 }
 
@@ -112,8 +120,6 @@
   border-radius: 5px;
 }
 
-
-
 /* Card Deck Styles */
 /* Container holding all movie cards */
 .movie-container {
@@ -122,19 +128,19 @@
   gap: 20px;
   justify-content: center; /* Centers the items horizontally */
   padding: 20px;
-  background-color:transparent; /* Light grey background */
+  background-color: transparent; /* Light grey background */
 }
 
 /* Individual movie card */
 .movie-card {
   display: flex;
   flex-direction: column;
-  width: 300px; /* Width of each card */
+  width: 100%;
+  max-width: 300px; /* Width of each card */
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow to the card */
   transition: transform 0.3s ease, box-shadow 0.3s ease, width 0.6s ease; /* Apply smooth transitions */
-
   cursor: pointer; /* Pointer cursor on hover */
 }
 
@@ -169,10 +175,8 @@
 /* Hover effect on the movie card */
 .movie-card:hover {
   transition-delay: 0.6s; /* Remove delay for smooth transition on hover */
-
   transform: translateY(-5px); /* Slightly lifts the card up */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhances shadow on hover */
-  /* width: 350px;  */
 }
 
 /* Media Queries for Responsiveness */
@@ -184,9 +188,7 @@
   }
 
   .image-placeholder {
-    height: 1000px;
-    object-fit: cover; /* Ensures images cover the container without distortion */
-
+    height: 1200px;
   }
 
   .info-plot {
@@ -201,13 +203,11 @@
 /* Large Screens (Laptops, Tablets in Landscape) */
 @media (min-width: 1024px) and (max-width: 1199px) {
   .movie-details {
-    padding: 15px;
+    padding: 10px;
   }
 
   .image-placeholder {
-    height: 600px;
-    object-fit: cover; /* Ensures images cover the container without distortion */
-
+    height: 1000px;
   }
 
   .info-plot {
@@ -226,9 +226,7 @@
   }
 
   .image-placeholder {
-    height: 600px;
-    object-fit: cover; /* Ensures images cover the container without distortion */
-
+    height: 700px;
   }
 
   .info-plot {
@@ -240,7 +238,7 @@
   }
 
   .more-like-this {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 
@@ -252,28 +250,29 @@
 
   .image-placeholder {
     height: 600px;
-
-    object-fit: contain;
   }
 
   .info-plot {
     width: 100%;
   }
-
+  .info-cast{
+    grid-template-rows: repeat(1, 1fr);
+  
+  }
   .card-deck {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   }
 
   .more-like-this {
-    font-size: 12px;
+    font-size: 25px;
   }
 
-  .card-title {
-    font-size: 12px;
-  }
-
-  .card-text {
+  .movie-card-title {
     font-size: 10px;
+  }
+
+  .movie-card-text {
+    font-size: 12px;
   }
 }
 
@@ -284,7 +283,7 @@
   }
 
   .image-placeholder {
-    object-fit:cover;
+    height: 500px;
   }
 
   .close-btn {
@@ -293,7 +292,7 @@
   }
 
   .info-plot {
-    font-size: 14px;
+    font-size: 11px;
   }
 
   .info-year,
@@ -301,13 +300,16 @@
     font-size: 10px;
     padding: 6px;
   }
+.info-cast{
+  grid-template-rows: repeat(1, 1fr);
 
-  .card-title {
-    font-size: 10px;
+}
+  .movie-card-title {
+    font-size: 12px;
   }
 
-  .card-text {
-    font-size: 8px;
+  .movie-card-text {
+    font-size: 10px;
   }
 
   .more-like-this {

@@ -32,6 +32,10 @@ export default function Seggessions() {
             className="movie-card-img"
             src={movie.poster}
             alt={movie.title}
+            onError={(e) => {
+              e.target.onerror = null; // Prevents an infinite loop if fallback image fails
+              e.target.src = "/maxresdefault.jpg"; // Path to your fallback image
+            }}
           />
           <div className="movie-card-body">
             <h5 className="movie-card-title">{movie.title}</h5>

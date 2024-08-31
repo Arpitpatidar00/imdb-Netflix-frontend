@@ -2,6 +2,8 @@ import React from "react";
 import "./About.css";
 import { useSelector } from "react-redux";
 import Seggessions from "./Seggessions.js";
+import CloseButton from 'react-bootstrap/CloseButton';
+
 const wordLimit = 200;
 
 export default function MovieDetails({ onClose }) {
@@ -26,9 +28,13 @@ export default function MovieDetails({ onClose }) {
           <img
             src={selectedMovie.poster || "/maxresdefault.jpg"}
             alt={selectedMovie.title}
+            onError={(e) => {
+              e.target.onerror = null; // Prevents an infinite loop if fallback image fails
+              e.target.src = "/maxresdefault.jpg"; // Path to your fallback image
+            }}
           />
           <div className="close-btn" onClick={onClose}>
-            X
+          <CloseButton />
           </div>
         </div>
       </div>
