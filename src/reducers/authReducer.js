@@ -9,6 +9,7 @@ import {
 
 } from '../action/authActions.js';
 
+
 const initialState = {
   formData: {
     username: '',
@@ -20,6 +21,7 @@ const initialState = {
   error: '',
   userData: null,
   email: '',
+  success: false,  // Add this line
 };
 
 const authReducer = (state = initialState, action) => {
@@ -59,13 +61,13 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         error: '',
-        
+        success: true,  // Set success to true on signup success
       };
-      case SET_USER_DATA:
-        return {
-          ...state,
-          userData: action.payload,
-        };
+    case SET_USER_DATA:
+      return {
+        ...state,
+        userData: action.payload,
+      };
     default:
       return state;
   }

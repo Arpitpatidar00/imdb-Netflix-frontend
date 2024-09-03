@@ -7,13 +7,10 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SET_EMAIL = 'SET_EMAIL';
 export const SET_USER_DATA = 'SET_USER_DATA';
-<<<<<<< HEAD
-// const Api = "http://localhost:4000";
-const Api = "https://imdb-netflix-backend.onrender.com";
 
-=======
-const Api = "https://imdb-netflix-backend.onrender.com";
->>>>>>> c4407f2909e4336686b324c92fff74ef5f0a1498
+const Api = "http://localhost:4000";
+// const Api = "https://imdb-netflix-backend.onrender.com";
+
 // Action Creators
 export const setFormData = (field, value) => ({
   type: SET_FORM_DATA,
@@ -43,6 +40,7 @@ export const loginSuccess = (userData) => ({
 export const signupSuccess = () => ({
   type: SIGNUP_SUCCESS,
 });
+
 
 export const setUserData = (userData) => ({
   type: SET_USER_DATA,

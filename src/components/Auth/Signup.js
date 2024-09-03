@@ -1,10 +1,12 @@
+
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; 
 import { setFormData, submitSignup, setError } from '../../action/authActions';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import React Toastify CSS
-import './Auth.css'; // Ensure this import is correct
+import 'react-toastify/dist/ReactToastify.css'; 
+import './Auth.css'; 
+
 
 const countryCodes = [
   { code: '+1', country: 'United States' },
@@ -15,14 +17,25 @@ const countryCodes = [
 
 export default function Signup() {
   const dispatch = useDispatch();
-  const { formData = {}, loading, error } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const { formData = {}, loading, error, success } = useSelector((state) => state.auth);
 
   React.useEffect(() => {
     if (error) {
-      toast.error(error); // Show toast error message
-      dispatch(setError('')); // Clear error from state
+      toast.error(error); 
+      dispatch(setError('')); 
     }
   }, [error, dispatch]);
+
+  React.useEffect(() => {
+    if (success) {
+      toast.success('Signup successful! Redirecting to login...');
+      setTimeout(() => {
+        navigate('/login'); 
+        dispatch({ type: 'RESET_SUCCESS' });  // Reset success state after redirection
+      }, 2000); 
+    }
+  }, [success, navigate, dispatch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,14 +47,14 @@ export default function Signup() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        dispatch(setFormData('image', reader.result)); // Save the Base64 string
+        dispatch(setFormData('image', reader.result));
       };
-      reader.readAsDataURL(file); // Convert image to Base64
+      reader.readAsDataURL(file);
     }
   };
 
   const handleImageClear = () => {
-    dispatch(setFormData('image', '')); // Clear the image field
+    dispatch(setFormData('image', ''));
   };
 
   const handleCountryCodeChange = (e) => {
@@ -52,14 +65,24 @@ export default function Signup() {
     e.preventDefault();
 
     if (!formData.username || !formData.email || !formData.password || !formData.mobileno) {
-      dispatch(setError('Please fill all required fields'));
-      return;
+        dispatch(setError('Please fill all required fields'));
+        return;
     }
 
-    // Combine country code and mobile number
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+        dispatch(setError('Please enter a valid email address'));
+        return;
+    }
+
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (!passwordRegex.test(formData.password)) {
+        dispatch(setError('Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, and a number.'));
+        return;
+    }
+
     const fullMobileNumber = `${formData.countryCode || ''}${formData.mobileno || ''}`;
 
-    // Dispatch the signup action with combined mobile number
     dispatch(submitSignup({ ...formData, mobileno: fullMobileNumber }));
   };
 
@@ -67,6 +90,8 @@ export default function Signup() {
     <div>
       <div className='container-page'>
         <div className='container-Auth'>
+        <h1>Signup</h1>
+
           <form onSubmit={handleSubmit} className="space-y-7 Auth">
             {/* Username Input */}
             <div>
@@ -108,11 +133,9 @@ export default function Signup() {
 
             {/* Password Input */}
             <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Password
-                </label>
-              </div>
+              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                Password
+              </label>
               <div className="mt-2">
                 <input
                   id="password"
@@ -137,7 +160,7 @@ export default function Signup() {
                   name="countryCode"
                   value={formData.countryCode || ''}
                   onChange={handleCountryCodeChange}
-                  className="Auth w-2/4 block w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-7"
+                  className="w-2/4 block rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-7"
                   required
                 >
                   <option value="" disabled>Select Country Code</option>
@@ -155,34 +178,41 @@ export default function Signup() {
                   onChange={handleChange}
                   required
                   autoComplete="current-mobileno"
-                  className="Auth w-2/4 ml-2 block w-full rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-7"
+                  className="ml-2 w-2/4 block rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-7"
                 />
               </div>
             </div>
 
-            {/* Image Upload */}
+            {/* Image Input */}
             <div>
               <label htmlFor="image" className="block text-sm font-medium leading-6 text-gray-900">
-                Image
+                Profile Image
               </label>
-              <div className="mt-2 relative"> {/* Make this container relative */}
-                <input
-                  name="image"
-                  type="file"
-                  onChange={handleImageChange}
-                />
+              <div className="mt-2">
                 {formData.image && (
-                  <div className="mt-2 relative">
-                    <img src={formData.image} alt="Preview" className="w-full h-auto rounded-md" />
-                    <button 
+                  <div className="relative">
+                    <img
+                      src={formData.image}
+                      alt="Profile"
+                      className="w-32 h-32 object-cover rounded-full"
+                    />
+                    <button
                       type="button"
                       onClick={handleImageClear}
-                      className="absolute top-2 right-2 p-1 bg-gray-300 rounded-full"
+                      className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
                     >
-                      <span className="text-gray-700 text-lg">✕</span>
+                      X
                     </button>
                   </div>
                 )}
+                <input
+                  id="image"
+                  name="image"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="mt-2"
+                />
               </div>
             </div>
 
@@ -195,21 +225,17 @@ export default function Signup() {
                 {loading ? 'Signing up...' : 'Sign up'}
               </button>
             </div>
-
-            {/* Link to Login Page */}
             <div className="mt-4 text-center">
               <p className="text-sm text-gray-600">
-                Don’t have an account?{' '}
+                Already have an account?{' '}
                 <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                  Sign up
+                  Login
                 </Link>
               </p>
             </div>
           </form>
         </div>
       </div>
-
-      {/* Toast Container */}
       <ToastContainer />
     </div>
   );
