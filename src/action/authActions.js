@@ -8,8 +8,8 @@ export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SET_EMAIL = 'SET_EMAIL';
 export const SET_USER_DATA = 'SET_USER_DATA';
 
-const Api = "http://localhost:4000";
-// const Api = "https://imdb-netflix-backend.onrender.com";
+// const Api = "http://localhost:4000";
+const Api = "https://imdb-netflix-backend.onrender.com";
 
 // Action Creators
 export const setFormData = (field, value) => ({
